@@ -1,4 +1,4 @@
-import { ActionKind, ActionType } from "../App";
+import { ActionKind, ActionType } from "../types";
 
 interface StartScreenProps {
   numQuestions: number;

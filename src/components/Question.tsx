@@ -1,4 +1,4 @@
-import { ActionType, QuestionType } from "../App";
+import { ActionType, QuestionType } from "../types";
 import Options from "./Options";
 
 interface QuestionProps {
