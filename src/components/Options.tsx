@@ -1,33 +1,23 @@
-import { QuestionType, ActionType, ActionKind } from "../types";
+import { useQuiz } from "../contexts/QuizContext";
 
-interface OptionsProps {
-  question: QuestionType;
-  dispatch: React.Dispatch<ActionType>;
-  answer: null | number;
-}
-
-function Options({ question, dispatch, answer }: OptionsProps) {
+function Options() {
+  const { questions, index, answer, handleNewAnswer } = useQuiz();
   const hasAnswer = answer !== null;
 
   return (
     <div className="options">
-      {question.options?.map((option, idx) => (
+      {questions[index].options?.map((option, idx) => (
         <button
           key={option}
           disabled={hasAnswer}
           className={`btn btn-option ${idx === answer ? "answer" : ""} ${
             hasAnswer
-              ? idx === question.correctOption
+              ? idx === questions[index].correctOption
                 ? "correct"
                 : "wrong"
               : ""
           }`}
-          onClick={() =>
-            dispatch({
-              type: ActionKind.NEW_ANSWER,
-              payload: Number(idx),
-            })
-          }
+          onClick={() => handleNewAnswer(idx)}
         >
           {option}
         </button>

@@ -1,30 +1,13 @@
-import { ActionType, ActionKind } from "../types";
+import { useQuiz } from "../contexts/QuizContext";
 
-interface NextButtonProps {
-  dispatch: React.Dispatch<ActionType>;
-  answer: null | number;
-  index: number;
-  numQuestions: number;
-}
-
-function NextButton({
-  dispatch,
-  answer,
-  index,
-  numQuestions,
-}: NextButtonProps) {
+function NextButton() {
+  const { handleNextQuestion, handleFinish, answer, index, numQuestions } =
+    useQuiz();
   if (answer === null) return null;
 
   if (index < numQuestions - 1) {
     return (
-      <button
-        className="btn btn-ui"
-        onClick={() =>
-          dispatch({
-            type: ActionKind.NEXT_QUESTION,
-          })
-        }
-      >
+      <button className="btn btn-ui" onClick={handleNextQuestion}>
         Next
       </button>
     );
@@ -32,14 +15,7 @@ function NextButton({
 
   if (index === numQuestions - 1) {
     return (
-      <button
-        className="btn btn-ui"
-        onClick={() =>
-          dispatch({
-            type: ActionKind.FINISH,
-          })
-        }
-      >
+      <button className="btn btn-ui" onClick={handleFinish}>
         Finish
       </button>
     );

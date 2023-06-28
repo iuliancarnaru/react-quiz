@@ -1,23 +1,12 @@
-interface ProgressProps {
-  idx: number;
-  numQuestions: number;
-  points: number;
-  maxPossiblePoints: number;
-  answer: null | number;
-}
+import { useQuiz } from "../contexts/QuizContext";
 
-function Progress({
-  idx,
-  numQuestions,
-  points,
-  maxPossiblePoints,
-  answer,
-}: ProgressProps) {
+function Progress() {
+  const { index, numQuestions, points, maxPossiblePoints, answer } = useQuiz();
   return (
     <header className="progress">
-      <progress max={numQuestions} value={idx + Number(answer !== null)} />
+      <progress max={numQuestions} value={index + Number(answer !== null)} />
       <p>
-        Question <strong>{idx + 1}</strong> / {numQuestions}
+        Question <strong>{index + 1}</strong> / {numQuestions}
       </p>
       <p>
         <strong>{points}</strong> / {maxPossiblePoints}

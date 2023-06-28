@@ -1,28 +1,23 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useEffect } from "react";
-import { ActionKind, ActionType } from "../types";
 
-interface TimerProps {
-  dispatch: React.Dispatch<ActionType>;
-  secondsRemaining: number | null;
-}
+import { useQuiz } from "../contexts/QuizContext";
 
-function Timer({ dispatch, secondsRemaining }: TimerProps) {
+function Timer() {
+  const { secondsRemaining, handleTick } = useQuiz();
   const minutes = `${Math.floor(secondsRemaining! / 60)}`.padStart(2, "0");
   const seconds = `${secondsRemaining! % 60}`.padStart(2, "0");
 
   // performance issue, re-render every second
   useEffect(() => {
     const interval = setInterval(() => {
-      dispatch({
-        type: ActionKind.TICK,
-      });
+      handleTick();
     }, 1000);
 
     return () => {
       clearInterval(interval);
     };
-  }, [dispatch]);
+  }, [handleTick]);
 
   return (
     <div className="timer">

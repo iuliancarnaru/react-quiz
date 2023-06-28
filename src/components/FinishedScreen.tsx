@@ -1,19 +1,9 @@
 import { useEffect, useRef } from "react";
-import { ActionKind, ActionType } from "../types";
+import { useQuiz } from "../contexts/QuizContext";
 
-interface FinishedScreenProps {
-  points: number;
-  maxPossiblePoints: number;
-  highScore: number;
-  dispatch: React.Dispatch<ActionType>;
-}
+function FinishedScreen() {
+  const { points, maxPossiblePoints, highScore, handleRestart } = useQuiz();
 
-function FinishedScreen({
-  points,
-  maxPossiblePoints,
-  highScore,
-  dispatch,
-}: FinishedScreenProps) {
   // Pass in the id of an element
   const resultRef = useRef<HTMLParagraphElement>(null);
 
@@ -50,14 +40,7 @@ function FinishedScreen({
         ({percentage.toFixed(2)}%)
       </p>
       <p className="highscore">(High Score: {highScore})</p>
-      <button
-        className="btn btn-ui"
-        onClick={() =>
-          dispatch({
-            type: ActionKind.RESTART,
-          })
-        }
-      >
+      <button className="btn btn-ui" onClick={handleRestart}>
         Restart
       </button>
     </>
